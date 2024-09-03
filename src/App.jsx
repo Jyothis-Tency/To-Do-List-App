@@ -1,9 +1,7 @@
-import ToDoList from "./ToDo"
+import ToDoList from "./ToDo";
 
 function App() {
-
-
-  return(<ToDoList></ToDoList>)
+  return <ToDoList></ToDoList>;
 }
 
-export default App
+export default App;

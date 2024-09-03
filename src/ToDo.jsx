@@ -30,10 +30,8 @@ function ToDoList() {
   function moveTaskUp(index) {
     console.log("moveTaskUp");
     console.log(index);
-
-    if (index >= 0) {
+    if (index > 0) {
       console.log("moveTaskUp");
-
       const updatedTask = [...tasks];
       [updatedTask[index], updatedTask[index - 1]] = [
         updatedTask[index - 1],
