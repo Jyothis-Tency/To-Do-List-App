@@ -9,15 +9,10 @@ function ToDoList() {
   }
 
   function addTask() {
-    console.log("Add Task");
-    console.log(tasks);
-    console.log(newTask);
+    let isExist = tasks.some((t) => t.text === newTask);
 
-    let isExist = tasks.some((t) => t === newTask);
-    console.log(isExist);
-
-    if (newTask.trim() !== "" && isExist === false) {
-      setTasks((t) => [...t, newTask]);
+    if (newTask.trim() !== "" && !isExist) {
+      setTasks((t) => [...t, { text: newTask, isDone: false }]);
       setNewTask("");
     }
   }
@@ -28,10 +23,7 @@ function ToDoList() {
   }
 
   function moveTaskUp(index) {
-    console.log("moveTaskUp");
-    console.log(index);
     if (index > 0) {
-      console.log("moveTaskUp");
       const updatedTask = [...tasks];
       [updatedTask[index], updatedTask[index - 1]] = [
         updatedTask[index - 1],
@@ -52,6 +44,13 @@ function ToDoList() {
     }
   }
 
+  function toggleTaskDone(index) {
+    const updatedTask = tasks.map((task, i) =>
+      i === index ? { ...task, isDone: !task.isDone } : task
+    );
+    setTasks(updatedTask);
+  }
+
   return (
     <div className="to-do-list">
       <h1>To-Do List</h1>
@@ -59,7 +58,7 @@ function ToDoList() {
       <div>
         <input
           type="text"
-          placeholder="Enter a task...."
+          placeholder="Enter a task..."
           value={newTask}
           onChange={handleInputChange}
         />
@@ -71,7 +70,12 @@ function ToDoList() {
       <ol>
         {tasks.map((task, index) => (
           <li key={index}>
-            <span className="text">{task}</span>
+            <span
+              className="text"
+              style={{ textDecoration: task.isDone ? "line-through" : "none" }}
+            >
+              {task.text}
+            </span>
             <button className="delete-button" onClick={() => deleteTask(index)}>
               Delete
             </button>
@@ -81,6 +85,11 @@ function ToDoList() {
             <button className="move-button" onClick={() => moveTaskDown(index)}>
               Down
             </button>
+            <input
+              type="checkbox"
+              checked={task.isDone}
+              onChange={() => toggleTaskDone(index)}
+            />
           </li>
         ))}
       </ol>
