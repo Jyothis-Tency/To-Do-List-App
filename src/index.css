@@ -128,16 +128,20 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]::before {
-  content: "";
+  content: "✘";
+  font-size: 42px;
+  line-height: 42px;
   display: block;
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: red;
+  color: antiquewhite;
   border-radius: 3px;
 }
 
 input[type="checkbox"]:checked::before {
   background-color: #4caf50;
+  content: "";
 }
 
 input[type="checkbox"]::after {
